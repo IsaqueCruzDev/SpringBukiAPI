@@ -1,9 +1,11 @@
 package br.com.bukiapi.buki.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +25,15 @@ public class ClientController {
 	@Autowired
 	private ClientRepository clientRepository;
 
+	@GetMapping
+	public Iterable<Client> getClients() {
+		return clientRepository.findAll();
+	}
+
 	@PostMapping
 	public String createClient(@ModelAttribute Client data) {
-		Client client = new Client(data.getName(), data.getEmail(), data.getPassword());
+		Client client = new Client(data.getName(), data.getUsername(), data.getEmail(), data.getPassword(),
+				data.getRole());
 		clientRepository.save(client);
 		return "cliente criado com sucesso";
 	}
@@ -62,17 +70,17 @@ public class ClientController {
 		Optional<Client> optionalClient = clientRepository.findById(id);
 
 		if (optionalClient.isPresent()) {
-			
+
 			Client existingClient = optionalClient.get();
-			
+
 			if (updatePasswordData.getPassword() != null) {
 				existingClient.setPassword(updatePasswordData.getPassword());
 			}
-			
+
 			clientRepository.save(existingClient);
-			
+
 			return "Senha atualizada com sucesso!";
-			
+
 		} else {
 			return "Cliente não encontrado" + id;
 		}
