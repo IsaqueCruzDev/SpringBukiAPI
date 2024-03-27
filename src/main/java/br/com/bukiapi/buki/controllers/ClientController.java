@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bukiapi.buki.model.entities.Client;
-import br.com.bukiapi.buki.model.entities.UpdatePasswordData;
+import br.com.bukiapi.buki.model.entities.ClientPasswordData;
 import br.com.bukiapi.buki.model.repositores.ClientRepository;
 
 @RestController
@@ -58,7 +58,7 @@ public class ClientController {
 	}
 
 	@PatchMapping("/updatepassword/{id}")
-	public String updatePassword(@ModelAttribute UpdatePasswordData updatePasswordData, @PathVariable Long id) {
+	public String updatePassword(@ModelAttribute ClientPasswordData updatePasswordData, @PathVariable Long id) {
 		Optional<Client> optionalClient = clientRepository.findById(id);
 
 		if (optionalClient.isPresent()) {
