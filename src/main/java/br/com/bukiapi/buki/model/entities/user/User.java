@@ -1,5 +1,6 @@
-package br.com.bukiapi.buki.model.entities;
+package br.com.bukiapi.buki.model.entities.user;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -9,12 +10,13 @@ import jakarta.persistence.Id;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-public class Client implements UserDetails, Serializable { // o UserDetails vem do spring security e serve para mostrar ao spring qual
+public class User implements UserDetails, Serializable { // o UserDetails vem do spring security e serve para mostrar ao spring qual
 												// é a entidade dos usuários que serão autenticados
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,13 +26,21 @@ public class Client implements UserDetails, Serializable { // o UserDetails vem 
 	private String username;
 	private String email;
 	private String password;
-	private int role;
+	private UserRole role;
 
-	public Client() {
+	public User() {
 
 	}
 
-	public Client(String name, String username, String email, String password, int role) {
+	public User(String name, String username, String email, String password) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
+
+	public User(String name, String username, String email, String password, UserRole role) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -47,15 +57,16 @@ public class Client implements UserDetails, Serializable { // o UserDetails vem 
 //		return username;
 //	}
 
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public int getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
@@ -89,20 +100,22 @@ public class Client implements UserDetails, Serializable { // o UserDetails vem 
 	
 	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Retorna a lista de autorizações (roles) do usuário
-        return null;
+		if (this.role == UserRole.ADMIN)
+			return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+		else
+			return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getPassword() {
         // Retorna a senha do usuário
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
         // Retorna o nome de usuário do usuário
-        return null;
+        return username;
     }
 
     @Override

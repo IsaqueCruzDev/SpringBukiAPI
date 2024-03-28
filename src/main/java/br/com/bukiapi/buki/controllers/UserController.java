@@ -1,6 +1,5 @@
 package br.com.bukiapi.buki.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,50 +13,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bukiapi.buki.model.entities.Client;
-import br.com.bukiapi.buki.model.entities.ClientPasswordData;
-import br.com.bukiapi.buki.model.repositores.ClientRepository;
+import br.com.bukiapi.buki.model.entities.user.User;
+import br.com.bukiapi.buki.model.entities.user.UserPasswordData;
+import br.com.bukiapi.buki.model.repositores.UserRepository;
 
 @RestController
 @RequestMapping("/client")
-public class ClientController {
+public class UserController {
 
 	@Autowired
-	private ClientRepository clientRepository;
+	private UserRepository userRepository;
 
 	@GetMapping
-	public Iterable<Client> getClients() {
-		return clientRepository.findAll();
+	public Iterable<User> getClients() {
+		return userRepository.findAll();
 	}
 
 	@PostMapping
-	public String createClient(@ModelAttribute Client data) {
-		Client client = new Client(data.getName(), data.getUsername(), data.getEmail(), data.getPassword(),
+	public String createClient(@ModelAttribute User data) {
+		User user = new User(data.getName(), data.getUsername(), data.getEmail(), data.getPassword(),
 				data.getRole());
-		clientRepository.save(client);
+		userRepository.save(user);
 		return "cliente criado com sucesso";
 	}
 
 	@PutMapping("/{id}")
-	public String updateClient(@ModelAttribute Client updateClientData, @PathVariable long id) {
-		Optional<Client> optionalClient = clientRepository.findById(id);
+	public String updateClient(@ModelAttribute User updateUserData, @PathVariable long id) {
+		Optional<User> optionalClient = userRepository.findById(id);
 
 		if (optionalClient.isPresent()) {
-			Client existingClient = optionalClient.get();
+			User existingUser = optionalClient.get();
 
-			if (updateClientData.getName() != null) {
-				existingClient.setName(updateClientData.getName());
+			if (updateUserData.getName() != null) {
+				existingUser.setName(updateUserData.getName());
 			}
 
-			if (updateClientData.getEmail() != null) {
-				existingClient.setEmail(updateClientData.getEmail());
+			if (updateUserData.getEmail() != null) {
+				existingUser.setEmail(updateUserData.getEmail());
 			}
 
-			if (updateClientData.getPassword() != null) {
-				existingClient.setPassword(updateClientData.getPassword());
+			if (updateUserData.getPassword() != null) {
+				existingUser.setPassword(updateUserData.getPassword());
 			}
 
-			clientRepository.save(existingClient);
+			userRepository.save(existingUser);
 
 			return "Cliente editado com sucesso";
 		} else {
@@ -66,18 +65,18 @@ public class ClientController {
 	}
 
 	@PatchMapping("/updatepassword/{id}")
-	public String updatePassword(@ModelAttribute ClientPasswordData updatePasswordData, @PathVariable Long id) {
-		Optional<Client> optionalClient = clientRepository.findById(id);
+	public String updatePassword(@ModelAttribute UserPasswordData updatePasswordData, @PathVariable Long id) {
+		Optional<User> optionalClient = userRepository.findById(id);
 
 		if (optionalClient.isPresent()) {
 
-			Client existingClient = optionalClient.get();
+			User existingUser = optionalClient.get();
 
 			if (updatePasswordData.getPassword() != null) {
-				existingClient.setPassword(updatePasswordData.getPassword());
+				existingUser.setPassword(updatePasswordData.getPassword());
 			}
 
-			clientRepository.save(existingClient);
+			userRepository.save(existingUser);
 
 			return "Senha atualizada com sucesso!";
 
@@ -88,10 +87,10 @@ public class ClientController {
 
 	@DeleteMapping("/{id}")
 	public String deleteClient(@PathVariable Long id) {
-		Optional<Client> optionalClient = clientRepository.findById(id);
+		Optional<User> optionalClient = userRepository.findById(id);
 
 		if (optionalClient.isPresent()) {
-			clientRepository.deleteById(id);
+			userRepository.deleteById(id);
 			return "Cliente deletado com sucesso!";
 		} else {
 			return "Cliente não encontrado" + id;

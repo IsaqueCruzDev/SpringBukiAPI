@@ -1,13 +1,13 @@
-package br.com.bukiapi.buki.model.entities;
+package br.com.bukiapi.buki.model.entities.user;
 
-public class ClientPasswordData {
+public class UserPasswordData {
 	private String password;
 
-	public ClientPasswordData() {
+	public UserPasswordData() {
 		
 	}
 
-	public ClientPasswordData(String password) {
+	public UserPasswordData(String password) {
 		super();
 		this.password = password;
 	}
