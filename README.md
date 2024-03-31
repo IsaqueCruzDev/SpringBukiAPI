@@ -25,14 +25,30 @@ MySQL 8.0 ou superior
 Instalação:
 
 Clone o repositório:
+```
 git clone https://github.com/IsaqueCruzDev/SpringBukiAPI.git
+```
+
 Instale as dependências:
+```
 mvn clean install
+```
+
 Configure o banco de dados:
 Crie um banco de dados MySQL com o nome "springboot".
 Edite o arquivo application.properties e configure as informações de conexão com o banco de dados.
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/nome_do_banco?useSSL=false&serverTimezone=UTC
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=update
+```
+
 Inicie a API:
+```
 mvn spring-boot:run
+```
+
 Uso da API:
 
 A API está disponível na porta 8080.
