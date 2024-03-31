@@ -1,6 +1,6 @@
 # SpringBukiAPI
 API RESTful em Spring Boot com Segurança, JPA, Hibernate e MySQL
-Descrição:
+## Descrição:
 
 Esta API RESTful foi desenvolvida em Spring Boot, utilizando Spring Security para autenticação e autorização de usuários, JPA e Hibernate para acesso a dados e MySQL como banco de dados.
 
