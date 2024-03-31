@@ -3,21 +3,20 @@ API RESTful em Spring Boot com Segurança, JPA, Hibernate e MySQL
 ## Descrição:
 
 Esta API RESTful foi desenvolvida em Spring Boot, utilizando Spring Security para autenticação e autorização de usuários, JPA e Hibernate para acesso a dados e MySQL como banco de dados.
-
-Funcionalidades:
+## Funcionalidades:
 
 Autenticação: Login com base em username e password.
 Autorização: Controle de acesso a recursos da API através de roles.
 CRUD: Operações básicas de CRUD (Create, Read, Update, Delete) em entidades.
 Validação: Validação de entrada de dados com mensagens de erro personalizadas.
-Tecnologias:
+## Tecnologias:
 
 Spring Boot: Framework para desenvolvimento de APIs em Java.
 Spring Security: Framework para autenticação e autorização de usuários.
 JPA: Interface de abstração para acesso a dados.
 Hibernate: Implementação JPA para mapeamento objeto-relacional.
 MySQL: Banco de dados relacional.
-Pré-requisitos:
+## Pré-requisitos:
 
 Java 17 ou superior
 Maven 3.8 ou superior
@@ -34,7 +33,7 @@ Instale as dependências:
 mvn clean install
 ```
 
-Configure o banco de dados:
+## Configure o banco de dados:
 Crie um banco de dados MySQL com o nome "springboot".
 Edite o arquivo application.properties e configure as informações de conexão com o banco de dados.
 ```
