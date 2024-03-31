@@ -59,6 +59,7 @@ Exemplo de requisição:
 curl -X GET \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsInJvbGVzIjpbIkFkbWluaXN0cmF0b3IiXSwiaWF0IjoxNjQ0NTIxNzM2LCJleHAiOjE2NDQ1MjUzMzZ9.s1234567890" \
   http://localhost:8080/user
+  
 Licença:
 
 Esta API está licenciada sob a licença Apache 2.0.
