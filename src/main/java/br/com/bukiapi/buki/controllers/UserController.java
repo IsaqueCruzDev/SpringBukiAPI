@@ -37,6 +37,7 @@ public class UserController {
 		return "cliente criado com sucesso";
 	}
 
+
 	@PutMapping("/{id}")
 	public String updateClient(@ModelAttribute User updateUserData, @PathVariable long id) {
 		Optional<User> optionalClient = userRepository.findById(id);

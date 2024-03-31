@@ -1,5 +1,6 @@
 package br.com.bukiapi.buki.controllers;
 
+import br.com.bukiapi.buki.infra.security.TokenService;
 import br.com.bukiapi.buki.model.entities.user.AuthenticationDTO;
 import br.com.bukiapi.buki.model.entities.user.RegisterDTO;
 import br.com.bukiapi.buki.model.entities.user.User;
@@ -8,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -26,12 +26,32 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
+        try {
+            System.out.println("data " + data);
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+            var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+            var token = tokenService.generateToken((User) auth.getPrincipal());
+
+            User user = (User) userRepository.findByUsername(data.login());
+            var userReturn = {
+                    name: user.getName(),
+                    username: user.getUsername(),
+                    email: user.getEmail(),
+            };
+            return ResponseEntity.ok(user);
+        } catch (AuthenticationException e) {
+            System.out.println("Erro de autenticação: " + e.getMessage());
+            return ResponseEntity.status(401).body("Erro de autenticação: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+            return ResponseEntity.status(500).body("Erro interno do servidor: " + e.getMessage());
+        }
     }
 
     @PostMapping("/register")
