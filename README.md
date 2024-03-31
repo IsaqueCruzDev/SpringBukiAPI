@@ -11,16 +11,16 @@ Esta API RESTful foi desenvolvida em Spring Boot, utilizando Spring Security par
 - Validação: Validação de entrada de dados com mensagens de erro personalizadas.
 ## Tecnologias:
 
-Spring Boot: Framework para desenvolvimento de APIs em Java.
-Spring Security: Framework para autenticação e autorização de usuários.
-JPA: Interface de abstração para acesso a dados.
-Hibernate: Implementação JPA para mapeamento objeto-relacional.
-MySQL: Banco de dados relacional.
+- Spring Boot: Framework para desenvolvimento de APIs em Java.
+- Spring Security: Framework para autenticação e autorização de usuários.
+- JPA: Interface de abstração para acesso a dados.
+- Hibernate: Implementação JPA para mapeamento objeto-relacional.
+- MySQL: Banco de dados relacional.
 ## Pré-requisitos:
 
-Java 17 ou superior
-Maven 3.8 ou superior
-MySQL 8.0 ou superior
+- Java 17 ou superior
+- Maven 3.8 ou superior
+- MySQL 8.0 ou superior
 Instalação:
 
 Clone o repositório:
@@ -34,8 +34,8 @@ mvn clean install
 ```
 
 ## Configure o banco de dados:
-Crie um banco de dados MySQL com o nome "springboot".
-Edite o arquivo application.properties e configure as informações de conexão com o banco de dados.
+- Crie um banco de dados MySQL com o nome "springboot".
+- Edite o arquivo application.properties e configure as informações de conexão com o banco de dados.
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/nome_do_banco?useSSL=false&serverTimezone=UTC
 spring.datasource.username=seu_usuario
